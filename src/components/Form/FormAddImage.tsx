@@ -77,15 +77,15 @@ export function FormAddImage({ closeModal }: FormAddImageProps): JSX.Element {
           description:
             'É preciso adicionar e aguardar o upload de uma imagem antes de realizar o cadastro.',
         });
+      } else {
+        mutateAsync(data);
+
+        toast({
+          status: 'success',
+          title: 'Imagem cadastrada',
+          description: 'Sua imagem foi cadastrada com sucesso.',
+        });
       }
-
-      mutateAsync(data);
-
-      toast({
-        status: 'success',
-        title: 'Imagem cadastrada',
-        description: 'Sua imagem foi cadastrada com sucesso.',
-      });
     } catch {
       toast({
         status: 'error',
