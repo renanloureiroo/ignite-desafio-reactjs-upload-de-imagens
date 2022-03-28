@@ -68,16 +68,12 @@ const FileInputBase: ForwardRefRenderFunction<
     {} as CancelTokenSource
   );
 
-  useEffect(() => {
-    console.log(localImageUrl);
-  }, [localImageUrl]);
-
   const handleImageUpload = useCallback(
     async (event: React.ChangeEvent<HTMLInputElement>): Promise<void> => {
       if (!event.target.files?.length) {
         return;
       }
-
+      console.log(event.target.files);
       setImageUrl('');
       setLocalImageUrl('');
       setError('image', null);

@@ -1,11 +1,10 @@
 import { Button, Box } from '@chakra-ui/react';
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 import { useInfiniteQuery } from 'react-query';
 
-import { encode } from 'querystring';
 import { Header } from '../components/Header';
 import { CardList } from '../components/CardList';
-import { api } from '../services/api';
+
 import { Loading } from '../components/Loading';
 import { Error } from '../components/Error';
 import { getImages } from '../utils/getImages';
@@ -30,9 +29,13 @@ export default function Home(): JSX.Element {
     return formatted;
   }, [data]);
 
-  // TODO RENDER LOADING SCREEN
+  if (isLoading) {
+    return <Loading />;
+  }
 
-  // TODO RENDER ERROR SCREEN
+  if (isError) {
+    return <Error />;
+  }
 
   return (
     <>
@@ -40,7 +43,11 @@ export default function Home(): JSX.Element {
 
       <Box maxW={1120} px={20} mx="auto" my={20}>
         {!!formattedData && <CardList cards={formattedData} />}
-        {/* TODO RENDER LOAD MORE BUTTON IF DATA HAS NEXT PAGE */}
+        {hasNextPage && (
+          <Button my="10" onClick={() => fetchNextPage()}>
+            {isFetchingNextPage ? 'Carregando...' : 'Carregar mais'}
+          </Button>
+        )}
       </Box>
     </>
   );
